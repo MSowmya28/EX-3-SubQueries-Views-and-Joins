@@ -64,51 +64,73 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (30, 'SALES', 'CHICAGO');
 
 INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 ```
+## OUTPUT:
+![output](./dbms3.1.png)
 
 ### Q1) List the name of the employees whose salary is greater than that of employee with empno 7566.
 
 
 ### QUERY:
+```
+select ename from emp where sal>(select sal from emp where empno=7566);
+```
 
 
 ### OUTPUT:
+![output](./dbms3.2.png)
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
 
 ### QUERY:
-
+```
+select ename,job,sal from emp where sal=(select min(sal) from emp);
+```
 
 ### OUTPUT:
-
+![output](./dbms3.3.png)
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
 
 ### QUERY:
+```
+select ENAME,JOB from emp where deptno = 10 AND job in(select job from
+emp where job='salesman');
+```
 
 
 ### OUTPUT:
+![output](./dbms3.4.png)
 
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
 
 ### QUERY:
-
+```
+create view emv5 as select empno,ename,job from emp where deptno=10;
+select ename,empno,job from emv5;
+```
 
 ### OUTPUT:
-
+![output](./dbms3.5.png)
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
 
 ### QUERY:
+```
+create view empv30 as select empno,ename,sal from emp where deptno=30;
+select ename,empno,sal from empv30;
+```
 
 
 ### OUTPUT:
-
+![output](./dbms3.6.png)
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
 
 ### QUERY:
-
+```
+update empv5 set sal = sal+(sal*0.1) where job='clerk':
+```
 
 ### OUTPUT:
-
+![output](./dbms3.7.png)
 ## Create a Customer1 Table
 ```sql
 CREATE TABLE Customer1 (customer_id INT,cust_name VARCHAR(20),city VARCHAR(20),grade INT,salesman_id INT);
@@ -137,31 +159,48 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5006, 'Mc Lyo
 INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5007, 'Paul Adam', 'Rome', 0.13);
 INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson Hen', 'San Jose', 0.12);
 ```
+### OUTPUT:
+![output](./dbms3.8.png)
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
 
 ### QUERY:
-
+```
+select salesman1.name AS "salesman",customer1.cust_name AS "customername",customer1.city
+from salesman1,customer1 where salesman1.city=customer1.city;
+```
 
 ### OUTPUT:
-
+![output](./dbms3.9.png)
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
 
 
 ### QUERY:
-
+```
+select customer1.cust_name as "CUSTOMER NAME",customer1.city as "CUSTOMER CITY", salesman1.name as "SALESMAN NAME",salesman1.commission as "COMMISSION" from salesman1 INNER JOIN customer1 on salesman1.salesman_id = customer1.salesman_id where salesman1.commission > 0.13;
+```
 
 ### OUTPUT:
 
+![output](./dbms3.10.png)
 ### Q9) Perform Natural join on both tables
 
 ### QUERY:
-
+```
+select * from customer1 NATURAL JOIN salesman1;
+```
 
 ### OUTPUT:
-
+![output](./dbms3.11.png)
 ### Q10) Perform Left and right join on both tables
 
 ### QUERY:
-
+```
+select * from salesman1 LEFT JOIN customer1 on salesman1.salesman_id=customer1.salesman_id;
+select * from salesman1 RIGHT JOIN customer1 on salesman1.salesman_id = customer1.salesman_id;
+```
 
 ### OUTPUT:
+![output](./dbms3.12.png)
+
+# RESULT:
+The program has been executed successfully for the above queries.
